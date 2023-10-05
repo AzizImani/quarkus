@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: Swagger Books - OpenAPI 3.0
+  description: |-
+    This is a sample Quarkus Store Server based on the OpenAPI 3.0 specification
+  version: 1.0-SNAPSHOT
+servers:
+  - url: https://localhost:8080/api
+tags:
+  - name: book
+    description: operations about book
+paths:
+  /books:
+    post:
+      tags:
+        - book
+      summary: Add a new book to the store
+      description: Add a new book to the store
+      operationId: addBook
+      requestBody:
+        description: Create a new book in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - book
+      summary: Finds all books
+      description: Finds all books
+      operationId: findAllBooks
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Books'
+  /books/{isbn}:
+    put:
+      tags:
+        - book
+      summary: Update an existing book
+      description: Update an existing book by Id
+      operationId: updateBook
+      parameters:
+        - name: isbn
+          in: path
+          description: Isbn values that need to be considered for filter
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent book in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Book not found
+        '405':
+          description: Validation exception
+    get:
+      tags:
+        - book
+      summary: Find Book by isbn
+      description: Finds Book by isbn
+      operationId: findBookByIsbn
+      parameters:
+        - name: isbn
+          in: path
+          description: Isbn values that need to be considered for filter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '400':
+          description: Invalid isbn value
+
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        isbn:
+          type: string
+        pages:
+          type: integer
+          format: int64
+          example: 231
+        publicationDate:
+          type: string
+          format: date-time
+        language:
+          type: string
+          description: Book language Status
+          example: En
+          enum:
+            - Ar
+            - En
+
+    Books:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Books'
