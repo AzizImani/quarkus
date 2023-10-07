@@ -1,10 +1,12 @@
-<?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.agoncal.fascicle.quarkus</groupId>
   <artifactId>getting-started</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+    
   <properties>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
@@ -16,6 +18,7 @@
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
   </properties>
+      
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -25,71 +28,59 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+                  
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>1.5.5</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+
+    
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jsonb</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-arc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy</artifactId>
-    </dependency>
+
     <!--dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-orm</artifactId>
+      <artifactId>quarkus-arc</artifactId>
     </dependency-->
-    <dependency>
+
+    <!--dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy</artifactId>
+    </dependency-->
+
+    <!--dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-openapi</artifactId>
-    </dependency>
+    </dependency-->
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-postgresql</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm-panache</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <version>1.3.2</version>
-    </dependency-->
-    <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
-    <!--dependency>
-      <groupId>io.swagger.core.v3</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>2.2.16</version>
-    </dependency-->
-    <!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
-    <!--dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>2.0.0-rc2</version>
-    </dependency-->
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>1.5.5</version>
-    </dependency>
-
-
   </dependencies>
 
   <build>
@@ -109,6 +100,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${compiler-plugin.version}</version>
@@ -118,6 +110,7 @@
           </compilerArgs>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
@@ -128,6 +121,7 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
@@ -147,53 +141,17 @@
           </execution>
         </executions>
       </plugin>
-        <plugin>
-          <groupId>org.openapitools</groupId>
-          <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>7.0.1</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>generate</goal>
-              </goals>
-              <configuration>
-                <inputSpec>src/main/resources/swagger-definitions.yaml</inputSpec> <!-- Path to your Swagger YAML file -->
-                <generatorName>jaxrs-spec</generatorName>
-                <output>${project.build.directory}/generated-sources/openapi</output> <!-- Output directory for generated code -->
-                <apiPackage>org.agoncal.fascicle.quarkus.api</apiPackage>
-                <modelPackage>org.agoncal.fascicle.quarkus.models</modelPackage>
-                <dateLibrary>java8</dateLibrary>
-                <configOptions>
-                  <useJakartaEe>true</useJakartaEe>
-                  <interfaceOnly>true</interfaceOnly>
-                  <returnResponse>true</returnResponse>
-                  <generateBuilders>true</generateBuilders> <!-- Enable builder generation -->
-                </configOptions>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-      <plugin>
-        <!-- a hint for IDE's to add the java sources to the classpath -->
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.0.0</version>
-        <executions>
-          <execution>
-            <id>01-add-test-sources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.build.directory}/generated-sources/openapi/src/gen/java</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-maven-plugin</artifactId>
+          <version>${quarkus-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
   <profiles>
@@ -210,4 +168,12 @@
       </properties>
     </profile>
   </profiles>
+
+  <modules>
+    <module>store-core</module>
+    <module>store-api-definitions</module>
+    <module>store-repository</module>
+    <module>store-api</module>
+    <!--module>store-web</module-->
+  </modules>
 </project>
