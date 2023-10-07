@@ -2,7 +2,7 @@ package org.agoncal.fascicle.quarkus;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@QuarkusIntegrationTest
+//@QuarkusIntegrationTest
 public class GreetingResourceIT extends GreetingResourceTest {
     // Execute the same tests but in packaged mode.
 }

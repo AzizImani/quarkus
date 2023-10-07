@@ -161,7 +161,7 @@
                 <generatorName>jaxrs-spec</generatorName>
                 <output>${project.build.directory}/generated-sources/openapi</output> <!-- Output directory for generated code -->
                 <apiPackage>org.agoncal.fascicle.quarkus.api</apiPackage>
-                <modelPackage>org.agoncal.fascicle.quarkus.models</modelPackage>
+                <modelPackage>org.agoncal.fascicle.quarkus.api.models</modelPackage>
                 <dateLibrary>java8</dateLibrary>
                 <configOptions>
                   <useJakartaEe>true</useJakartaEe>

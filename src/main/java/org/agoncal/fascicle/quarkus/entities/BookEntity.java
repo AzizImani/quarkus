@@ -4,17 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import org.agoncal.fascicle.quarkus.models.Language;
 
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-public class Book extends Item {
+public class BookEntity extends ItemEntity {
     @Column(length = 15)
     private String isbn;
     @Column(name = "nb_of_pages")
@@ -23,16 +18,6 @@ public class Book extends Item {
     private Instant publicationDate;
     @Enumerated(EnumType.STRING)
     private Language language;
-    /*@OneToMany
-    @JoinTable(name = "book_author",
-      joinColumns = @JoinColumn(name = "book_fk"),
-      inverseJoinColumns = @JoinColumn(name = "author_fk")
-    )
-    private Set<Author> authors = new HashSet<>();
-    @ManyToOne
-    @JoinColumn(name = "publisher_pk")
-    private Publisher publisher;
-    // Constructors, getters, setters*/
 
     public String getIsbn() {
         return isbn;

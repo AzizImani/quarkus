@@ -8,10 +8,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "item")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Item {
+public abstract class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
