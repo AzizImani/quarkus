@@ -22,7 +22,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Book'
+              $ref: '#/components/schemas/CreateBookRequest'
         required: true
       responses:
         '200':
@@ -67,7 +67,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Book'
+              $ref: '#/components/schemas/UpdateBookRequest'
         required: true
       responses:
         '200':
@@ -110,6 +110,44 @@ paths:
 
 components:
   schemas:
+    CreateBookRequest:
+      type: object
+      properties:
+        isbn:
+          type: string
+        pages:
+          type: integer
+          format: int32
+          example: 231
+        publicationDate:
+          type: string
+          format: date-time
+        language:
+          type: string
+          description: Book language Status
+          example: En
+          enum:
+            - Ar
+            - En
+    UpdateBookRequest:
+      type: object
+      properties:
+        isbn:
+          type: string
+        pages:
+          type: integer
+          format: int32
+          example: 231
+        publicationDate:
+          type: string
+          format: date-time
+        language:
+          type: string
+          description: Book language Status
+          example: En
+          enum:
+            - Ar
+            - En
     Book:
       type: object
       properties:
@@ -117,7 +155,7 @@ components:
           type: string
         pages:
           type: integer
-          format: int64
+          format: int32
           example: 231
         publicationDate:
           type: string
@@ -136,4 +174,4 @@ components:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/Books'
+            $ref: '#/components/schemas/Book'

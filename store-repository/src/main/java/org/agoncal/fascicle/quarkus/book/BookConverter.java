@@ -10,16 +10,18 @@ public class BookConverter {
 
     public BookEntity toEntity(Book book) {
         BookEntity entity = new BookEntity();
-        entity.setId(book.getId());
         entity.setIsbn(book.getIsbn());
         entity.setLanguage(book.getLanguage());
+        entity.setNumberOfPages(book.getNumberOfPages());
+        entity.setPublicationDate(book.getPublicationDate());
         return entity;
     }
 
     public Book toInternalModel(BookEntity entity) {
         return new Book(
-                entity.getId(),
                 entity.getIsbn(),
+                entity.getNumberOfPages(),
+                entity.getPublicationDate(),
                 entity.getLanguage()
         );
     }
